@@ -7,11 +7,11 @@ This document provides essential resources and guides for developing and deployi
 
 ### 1️⃣ Project Requirements & Description
 This document outlines the objectives, features, and technical specifications of the project.
-📌 [Project Requirements & Description]([YOUR_LINK_HERE](https://docs.google.com/document/d/11dAs5I0Z9n5zVYfdvBwLc_tpteywg6UhaGzbb-A-8VI/edit?tab=t.0))
+📌 [Project Requirements & Description](https://docs.google.com/document/d/11dAs5I0Z9n5zVYfdvBwLc_tpteywg6UhaGzbb-A-8VI/edit?tab=t.0)
 
 ### 2️⃣ Development Guide
 A step-by-step guide on setting up and implementing the project, covering backend (Spring Boot) and frontend (React).
-📌 [Development Guide]([YOUR_LINK_HERE](https://docs.google.com/document/d/1Ay7-5QRVyjRHuKJzAoeOU7zLcS4x_ZDMWRewdg0gcm4/edit?hl=vi&tab=t.0#heading=h.921xq3stl03f))
+📌 [Development Guide](https://docs.google.com/document/d/1Ay7-5QRVyjRHuKJzAoeOU7zLcS4x_ZDMWRewdg0gcm4/edit?hl=vi&tab=t.0#heading=h.921xq3stl03f)
 
 ## 📢 Contribution & Notes
 - Follow the provided guides to ensure a smooth development process.

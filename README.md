@@ -1,6 +1,6 @@
-# Forum Chat Application
+# Blog website Application
 
-A simple forum chat application built with Java Spring Boot (backend) and React (frontend).
+A simple blog website application built with Java Spring Boot (backend) and React (frontend).
 
 ## Features
 - User authentication (login/register)
@@ -20,15 +20,17 @@ A simple forum chat application built with Java Spring Boot (backend) and React 
    cd forum-chat
 
 Setup backend:
- cd backend
+```bash
+cd backend
 mvn spring-boot:run
-
+```
 
 Setup frontend:
- cd frontend
+```bash
+cd frontend
 npm install
 npm start
-
+```
 
 API Endpoints
 Method

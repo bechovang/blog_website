@@ -17,7 +17,7 @@ A full-featured blog website application built with **Java Spring Boot** (backen
 - Java + Spring Boot
 - PostgreSQL
 - WebSockets for real-time chat *(Planned)*
-- JWT for authentication *(Implemented)*
+- JWT for authentication *(Planned)*
 
 ### **Frontend:**
 - React

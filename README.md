@@ -44,6 +44,7 @@ mvn spring-boot:run
 _Backend will start running at: `http://localhost:8080`_
 
 **📌 Note:** Run that code in `blog-website/backend`
+
 **📌 Note:** If using IntelliJ IDEA, open the project from **`blog-website/backend`** before running this command.
 
 ### **3. Setup Frontend**

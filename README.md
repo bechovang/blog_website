@@ -38,12 +38,11 @@ cd blog-website
 
 ### **2. Setup Backend**
 ```bash
-cd backend
 mvn spring-boot:run
 ```
 _Backend will start running at: `http://localhost:8080`_
 
-**📌 Note:** Run code in `blog-website/backend`
+**📌 Note:** Run code in `blog-website/backend/blog`
 
 **📌 Note:** If using IntelliJ IDEA, open the project from **`blog-website/backend`** before running this command.
 

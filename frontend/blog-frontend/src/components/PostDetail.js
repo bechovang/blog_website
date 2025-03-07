@@ -6,30 +6,30 @@ const PostDetail = () => {
     const { id } = useParams();
     const [post, setPost] = useState(null);
     const [comments, setComments] = useState([]);
-    const [newComment, setNewComment] = useState(""); // Thêm state cho comment mới
+    const [newComment, setNewComment] = useState("");
 
     useEffect(() => {
         axios.get(`http://localhost:8080/api/posts/${id}`)
             .then(response => setPost(response.data))
             .catch(error => console.error("Error fetching post:", error));
 
-        axios.get(`http://localhost:8080/api/comments/post/${id}`) // Lấy comment theo post id
+        axios.get(`http://localhost:8080/api/comments/post/${id}`)
             .then(response => setComments(response.data))
             .catch(error => console.error("Error fetching comments:", error));
     }, [id]);
 
     const handleCommentSubmit = async () => {
-        if (!newComment.trim()) return; // Không gửi nếu comment rỗng
+        if (!newComment.trim()) return;
 
         try {
             const response = await axios.post("http://localhost:8080/api/comments", {
-              post: { id: id }, 
-              user: { id: 4 },  
-              commentContent: newComment, 
+                post: { id: id },
+                user: { id: 4 },
+                commentContent: newComment,
             });
 
-            setComments([...comments, response.data]); // Thêm comment vào danh sách
-            setNewComment(""); // Reset input
+            setComments([...comments, response.data]);
+            setNewComment("");
         } catch (error) {
             console.error("Error posting comment:", error);
         }
@@ -40,16 +40,29 @@ const PostDetail = () => {
     return (
         <div>
             <h2>{post.title}</h2>
+
+            {/* Hiển thị ảnh nếu có */}
+            {post.imageUrl && (
+                <img 
+                    src={post.imageUrl} 
+                    alt="Post" 
+                    style={{ maxWidth: "100%", height: "auto", marginBottom: "10px" }} 
+                />
+            )}
+
             <p>{post.postContent}</p>
 
             <h3>Bình luận</h3>
             <ul>
-                {Array.isArray(comments) ? comments.map(comment => (
-                    <li key={comment.id}>{comment.commentContent}</li> // ✅ Đúng key commentContent
-                )) : <p>Không có bình luận nào.</p>}
+                {Array.isArray(comments) && comments.length > 0 ? (
+                    comments.map(comment => (
+                        <li key={comment.id}>{comment.commentContent}</li>
+                    ))
+                ) : (
+                    <p>Không có bình luận nào.</p>
+                )}
             </ul>
 
-            {/* Form nhập bình luận */}
             <div>
                 <textarea
                     value={newComment}

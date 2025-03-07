@@ -27,18 +27,23 @@ public class Post {
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
-    @JsonIgnore // ✅ Chặn serialization để tránh vòng lặp
+    @JsonIgnore
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
+    // ➕ Thêm cột lưu đường dẫn ảnh
+    @Column(name = "image_url", nullable = true)
+    private String imageUrl;
+
     public Post() {}
 
-    public Post(Long id, String title, String postContent, User author, LocalDateTime createdAt) {
+    public Post(Long id, String title, String postContent, User author, LocalDateTime createdAt, String imageUrl) {
         this.id = id;
         this.title = title;
         this.postContent = postContent;
         this.author = author;
         this.createdAt = createdAt;
+        this.imageUrl = imageUrl;
     }
 
     public Long getId() {
@@ -87,5 +92,13 @@ public class Post {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

@@ -65,39 +65,51 @@ public class PostController {
     private static final String UPLOAD_DIR = "uploads/";
 
     @PostMapping("/upload")
-    public ResponseEntity<Map<String, String>> uploadImage(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<Map<String, String>> uploadImage(
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("postId") Long postId) {
+
+        System.out.println("Received postId: " + postId); // Debug
+
         if (file.isEmpty()) {
             return ResponseEntity.badRequest().body(Map.of("error", "File is empty"));
         }
 
-        try {
-            // Lấy đường dẫn thư mục uploads nằm trong thư mục gốc của project
-            String uploadDir = System.getProperty("user.dir") + "/uploads/";
-            File uploadDirFile = new File(uploadDir);
+        if (postId == null) {
+            return ResponseEntity.badRequest().body(Map.of("error", "postId is required"));
+        }
 
-            // Kiểm tra và tạo thư mục nếu chưa tồn tại
-            if (!uploadDirFile.exists()) {
-                boolean created = uploadDirFile.mkdirs();
-                System.out.println("Created upload directory: " + created);
+        try {
+            // Kiểm tra xem bài viết có tồn tại không
+            Post post = postService.getPostById(postId);
+            if (post == null) {
+                return ResponseEntity.badRequest().body(Map.of("error", "Post not found"));
             }
 
-            // Tạo tên file ngẫu nhiên
+            // Lưu file
+            String uploadDir = System.getProperty("user.dir") + "/uploads/";
+            File uploadDirFile = new File(uploadDir);
+            if (!uploadDirFile.exists()) uploadDirFile.mkdirs();
+
             String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
             File dest = new File(uploadDir + fileName);
-
-            System.out.println("Saving file to: " + dest.getAbsolutePath());
             file.transferTo(dest);
 
-            // Trả về URL file đã upload
-            return ResponseEntity.ok(Map.of("imageUrl", "http://localhost:8080/uploads/" + fileName));
+            // Cập nhật imageUrl vào Post
+            String imageUrl = "http://localhost:8080/uploads/" + fileName;
+            post.setImageUrl(imageUrl);
+            postService.updatePost(postId, post);
+
+            return ResponseEntity.ok(Map.of("imageUrl", imageUrl));
         } catch (IOException e) {
-            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(Map.of("error", "Could not upload file"));
         }
     }
 
-    //load ảnh atuwf thư mục bất kỳ
+
+
+    //load ảnh từ thư mục bất kỳ
     @RestController
     @RequestMapping("/uploads")
     public class FileController {

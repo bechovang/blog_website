@@ -43,7 +43,7 @@ mvn spring-boot:run
 ```
 _Backend will start running at: `http://localhost:8080`_
 
-**📌 Note:** Run that code in `blog-website/backend`
+**📌 Note:** Run code in `blog-website/backend`
 
 **📌 Note:** If using IntelliJ IDEA, open the project from **`blog-website/backend`** before running this command.
 
@@ -54,6 +54,8 @@ npm install
 npm start
 ```
 _Frontend will be available at: `http://localhost:3000`_
+
+**📌 Note:** Run that code in `blog-website/frontend`
 
 ## 📡 API Endpoints
 

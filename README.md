@@ -48,13 +48,12 @@ _Backend will start running at: `http://localhost:8080`_
 
 ### **3. Setup Frontend**
 ```bash
-cd frontend
 npm install
 npm start
 ```
 _Frontend will be available at: `http://localhost:3000`_
 
-**📌 Note:** Run that code in `blog-website/frontend`
+**📌 Note:** Run that code in `blog-website/frontend/blog-frontend`
 
 ## 📡 API Endpoints
 

@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 
 
 import java.net.MalformedURLException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.io.File;
@@ -57,8 +58,35 @@ public class PostController {
 
     // 5️⃣ API xóa bài viết (Delete)
     @DeleteMapping("/{id}")
-    public void deletePost(@PathVariable Long id) {
-        postService.deletePost(id);
+    public ResponseEntity<String> deletePost(@PathVariable Long id) {
+        try {
+            // Lấy thông tin bài viết trước khi xóa
+            Post post = postService.getPostById(id);
+            if (post == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Post not found");
+            }
+
+            // Kiểm tra và xóa file ảnh nếu có
+            if (post.getImageUrl() != null && !post.getImageUrl().isEmpty()) {
+                String imageUrl = post.getImageUrl();
+                String fileName = imageUrl.substring(imageUrl.lastIndexOf("/") + 1);
+                String uploadDir = System.getProperty("user.dir") + "/uploads/";
+                Path filePath = Paths.get(uploadDir + fileName);
+
+                // Xóa file ảnh
+                if (Files.exists(filePath)) {
+                    Files.delete(filePath);
+                    System.out.println("Deleted image file: " + filePath);
+                }
+            }
+
+            // Xóa bài viết từ database
+            postService.deletePost(id);
+            return ResponseEntity.ok("Post and associated image (if any) deleted successfully");
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error deleting post or image file: " + e.getMessage());
+        }
     }
 
     // API nhận ảnh bỏ vô file và trả về url

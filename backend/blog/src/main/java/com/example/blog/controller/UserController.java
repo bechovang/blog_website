@@ -1,7 +1,9 @@
 package com.example.blog.controller;
 
 import com.example.blog.model.User;
+import com.example.blog.repository.UserRepository;
 import com.example.blog.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,11 +32,11 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    // 3️⃣ Lấy user theo ID (Read)
-    @GetMapping("/{id}")
+    @GetMapping("/getid/{id}")
     public User getUserById(@PathVariable Long id) {
         return userService.getUserById(id);
     }
+
 
     // 4️⃣ Cập nhật user theo ID (Update)
     @PutMapping("/{id}")
@@ -47,4 +49,12 @@ public class UserController {
     public void deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
     }
+
+    // Thêm API kiểm tra và tạo user
+    @PostMapping("/check-and-create")
+    public String checkAndCreateUsers() {
+        userService.checkAndCreateUsers();
+        return "Users checked and created if needed.";
+    }
+
 }

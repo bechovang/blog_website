@@ -43,4 +43,22 @@ public class UserService {
         updatedUser.setId(id);
         return userRepository.save(updatedUser);
     }
+
+
+    // ✅ Thêm phương thức kiểm tra & tạo user
+    public void checkAndCreateUsers() {
+        createUserIfNotExists(1L, "admin@example.com", "admin123");
+    }
+
+    private void createUserIfNotExists(Long id, String email, String password) {
+        if (userRepository.findById(id).isEmpty()) {
+            User user = new User();
+            // user.setId(id);  user đầu tiên nó tự tạo sẽ là 1
+            user.setUsername("Admin");
+            user.setEmail(email);
+            user.setPassword(password);
+            userRepository.save(user);
+            System.out.println("User ID " + id + " đã được tạo.");
+        }
+    }
 }

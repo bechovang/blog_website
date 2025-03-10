@@ -4,12 +4,17 @@
 A full-featured blog website application built with **Java Spring Boot** (backend) and **React** (frontend), supporting user authentication, post creation, commenting, and real-time chat.
 
 ## 🚀 Features  
-- ✅ **User Authentication** – Register & login securely with JWT authentication. *(Implemented)*
-- 📝 **Post Management** – Create, edit, and delete blog posts. *(Implemented)*
-- 💬 **Comment System** – Engage with posts through comments. *(Implemented)*
-- 📡 **Real-time Chat** – WebSocket-based chat functionality. *(Planned)*
-- 📂 **File & Image Uploads** – Upload and attach images/files to posts. *(Planned)*
+- 📝 **Post Management** – Create and delete blog posts. *(Implemented, editing not available yet)*  
+- 💬 **Comment System** – Engage with posts through comments. *(Implemented)*  
+- 📂 **Image Uploads** – Upload and attach images to posts. *(Implemented, file uploads not available yet)*  
 - 🎨 **Modern UI** – Built with React & TailwindCSS. *(Work in Progress)*  
+- 🔜 **Planned Features**:  
+  - ✅ **User Authentication** – Register & login securely with JWT authentication.  
+  - 📡 **Real-time Chat** – WebSocket-based chat functionality.  
+  - 📝 **Post Editing** – Allow users to edit their blog posts.  
+  - 📂 **File Uploads** – Support for additional file formats beyond images.  
+  - 👍 **Like System** – Allow users to like posts.  
+  - 🔍 **Post Filtering** – Filter posts by date and tags.  
 
 ## 🛠 Tech Stack
 

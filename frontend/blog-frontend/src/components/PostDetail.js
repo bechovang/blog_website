@@ -27,7 +27,7 @@ const PostDetail = () => {
         try {
             const response = await axios.post("http://localhost:8080/api/comments", {
                 post: { id: id }, // Gửi kèm ID bài viết
-                user: { id: 4 }, // Giả sử user có ID = 4 (cần thay thế bằng dữ liệu thực)
+                user: { id: 1 }, // Giả sử user có ID = 1 (cần thay thế bằng dữ liệu thực)
                 commentContent: newComment, // Nội dung bình luận
             });
 

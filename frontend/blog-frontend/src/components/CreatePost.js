@@ -20,7 +20,7 @@ const CreatePost = () => {
             const postRes = await axios.post("http://localhost:8080/api/posts", {
                 title,
                 postContent: content,
-                author: { id: 4 },
+                author: { id: 1 },
                 imageUrl: "" // Để trống ban đầu
             });
 

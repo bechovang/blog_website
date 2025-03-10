@@ -36,24 +36,59 @@ git clone https://github.com/your-username/blog-website.git
 cd blog-website
 ```
 
-### **2. Setup Backend**
+### **2. Tạo và Cấu hình Database**
+1. **Mở PostgreSQL bằng terminal/cmd:**
+   ```bash
+   psql -U postgres
+   ```
+   (Nhập mật khẩu nếu có)
+
+2. **Kiểm tra database có tồn tại không:**
+   ```sql
+   \l
+   ```
+
+3. **Nếu chưa có database `blog_db`, tạo nó:**
+   ```sql
+   CREATE DATABASE blog_db;
+   ```
+
+4. **Thoát PostgreSQL:**
+   ```sql
+   \q
+   ```
+
+### **3. Cấu hình `application.properties`**
+Cập nhật file `application.properties` trong thư mục `backend/blog/src/main/resources` với các thông tin sau:
+
+```properties
+spring.application.name=blog_db
+spring.datasource.url=jdbc:postgresql://localhost:5432/blog_db
+spring.datasource.username=postgres  # Thay bằng username của bạn
+spring.datasource.password=phuc2006  # Thay bằng password của bạn
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.properties.hibernate.format_sql=true
+spring.web.resources.static-locations=file:uploads/
+```
+
+### **4. Setup Backend**
 ```bash
 mvn spring-boot:run
 ```
-_Backend will start running at: `http://localhost:8080`_
+_Backend sẽ chạy tại: `http://localhost:8080`_
 
-**📌 Note:** Run code in `blog-website/backend/blog`
+**📌 Lưu ý:** Chạy lệnh này trong thư mục `blog-website/backend/blog`.
 
-**📌 Note:** If using IntelliJ IDEA, open the project from **`blog-website/backend`** before running this command.
+**📌 Lưu ý:** Nếu sử dụng IntelliJ IDEA, mở project từ **`blog-website/backend`** trước khi chạy lệnh.
 
-### **3. Setup Frontend**
+### **5. Setup Frontend**
 ```bash
 npm install
 npm start
 ```
-_Frontend will be available at: `http://localhost:3000`_
+_Frontend sẽ chạy tại: `http://localhost:3000`_
 
-**📌 Note:** Run that code in `blog-website/frontend/blog-frontend`
+**📌 Lưu ý:** Chạy lệnh này trong thư mục `blog-website/frontend/blog-frontend`.
 
 ## 📡 API Endpoints
 

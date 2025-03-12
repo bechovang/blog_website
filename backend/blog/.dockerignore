@@ -1,0 +1,5 @@
+target/
+!target/*.jar
+*.jar
+*.class
+node_modules/

@@ -1,0 +1,13 @@
+version: '3'
+services:
+  backend:
+    build: ./backend/blog
+    ports:
+      - "8080:8080"
+  
+  frontend:
+    build: ./frontend/blog-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend

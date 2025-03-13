@@ -1,96 +1,95 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { Container, Card, ListGroup, Button, Form } from "react-bootstrap";
 
 const PostDetail = () => {
-    const { id } = useParams(); // Lấy ID bài viết từ URL
-    const [post, setPost] = useState(null); // Lưu thông tin bài viết
-    const [comments, setComments] = useState([]); // Lưu danh sách bình luận
-    const [newComment, setNewComment] = useState(""); // Lưu nội dung bình luận mới
+    const { id } = useParams();
+    const [post, setPost] = useState(null);
+    const [comments, setComments] = useState([]);
+    const [newComment, setNewComment] = useState("");
 
     useEffect(() => {
-        // Fetch thông tin bài viết từ API
         axios.get(`http://localhost:8080/api/posts/${id}`)
             .then(response => setPost(response.data))
             .catch(error => console.error("Error fetching post:", error));
 
-        // Fetch danh sách bình luận từ API
         axios.get(`http://localhost:8080/api/comments/post/${id}`)
             .then(response => setComments(response.data))
             .catch(error => console.error("Error fetching comments:", error));
     }, [id]);
 
-    // Xử lý gửi bình luận mới
     const handleCommentSubmit = async () => {
-        if (!newComment.trim()) return; // Kiểm tra nếu nội dung rỗng thì không gửi
+        if (!newComment.trim()) return;
 
         try {
             const response = await axios.post("http://localhost:8080/api/comments", {
-                post: { id: id }, // Gửi kèm ID bài viết
-                user: { id: 1 }, // Giả sử user có ID = 1 (cần thay thế bằng dữ liệu thực)
-                commentContent: newComment, // Nội dung bình luận
+                post: { id: id },
+                user: { id: 1 },
+                commentContent: newComment,
             });
 
-            setComments([...comments, response.data]); // Cập nhật danh sách bình luận
-            setNewComment(""); // Reset ô nhập bình luận
+            setComments([...comments, response.data]);
+            setNewComment("");
         } catch (error) {
             console.error("Error posting comment:", error);
         }
     };
 
-    // Xử lý xóa bình luận
     const handleDeleteComment = async (commentId) => {
         try {
             await axios.delete(`http://localhost:8080/api/comments/${commentId}`);
-            setComments(comments.filter(comment => comment.id !== commentId)); // Xóa bình luận khỏi danh sách
+            setComments(comments.filter(comment => comment.id !== commentId));
         } catch (error) {
             console.error("Error deleting comment:", error);
         }
     };
 
-    // Hiển thị loading nếu bài viết chưa được load
     if (!post) return <p>Loading...</p>;
 
     return (
-        <div>
-            <h2>{post.title}</h2>
+        <Container className="mt-4">
+            <Card className="mb-4">
+                <Card.Body>
+                    <Card.Title>{post.title}</Card.Title>
+                    {post.imageUrl && (
+                        <Card.Img variant="top" src={post.imageUrl} alt="Post" className="mb-3" />
+                    )}
+                    <Card.Text>{post.postContent}</Card.Text>
+                </Card.Body>
+            </Card>
 
-            {/* Hiển thị ảnh nếu bài viết có hình ảnh */}
-            {post.imageUrl && (
-                <img 
-                    src={post.imageUrl} 
-                    alt="Post" 
-                    style={{ maxWidth: "100%", height: "auto", marginBottom: "10px" }} 
-                />
-            )}
-
-            <p>{post.postContent}</p>
-
-            {/* Hiển thị danh sách bình luận */}
             <h3>Bình luận</h3>
-            <ul>
+            <ListGroup className="mb-4">
                 {comments.length > 0 ? (
                     comments.map(comment => (
-                        <li key={comment.id}>
-                            {comment.commentContent}
-                            <button onClick={() => handleDeleteComment(comment.id)}>Xóa</button>
-                        </li>
+                        <ListGroup.Item key={comment.id} className="d-flex justify-content-between align-items-center">
+                            <span>{comment.commentContent}</span>
+                            <Button variant="danger" size="sm" onClick={() => handleDeleteComment(comment.id)}>
+                                Xóa
+                            </Button>
+                        </ListGroup.Item>
                     ))
                 ) : (
-                    <p>Không có bình luận nào.</p>
+                    <ListGroup.Item>Không có bình luận nào.</ListGroup.Item>
                 )}
-            </ul>
+            </ListGroup>
 
-            {/* Ô nhập bình luận mới */}
-            <div>
-                <textarea
-                    value={newComment}
-                    onChange={(e) => setNewComment(e.target.value)}
-                    placeholder="Nhập bình luận của bạn..."
-                />
-                <button onClick={handleCommentSubmit}>Gửi</button>
-            </div>
-        </div>
+            <Form className="mb-4">
+                <Form.Group>
+                    <Form.Control 
+                        as="textarea" 
+                        rows={3} 
+                        value={newComment} 
+                        onChange={(e) => setNewComment(e.target.value)} 
+                        placeholder="Nhập bình luận của bạn..." 
+                    />
+                </Form.Group>
+                <Button variant="primary" className="mt-2" onClick={handleCommentSubmit}>
+                    Gửi bình luận
+                </Button>
+            </Form>
+        </Container>
     );
 };
 

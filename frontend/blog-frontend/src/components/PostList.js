@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { Button, Card, Container, ListGroup } from "react-bootstrap";
 
 const PostList = () => {
     const [posts, setPosts] = useState([]);
@@ -20,18 +21,30 @@ const PostList = () => {
     };
 
     return (
-        <div>
-            <h2>Danh sách bài viết</h2>
-            <ul>
-                {posts.map(post => (
-                    <li key={post.id}>
-                        <Link to={`/posts/${post.id}`}>{post.title}</Link>
-                        <button onClick={() => handleDeletePost(post.id)}>Xóa</button>
-                    </li>
-                ))}
-            </ul>
-            <Link to="/create">Tạo bài viết mới</Link>
-        </div>
+        <Container className="mt-5">
+            <Card className="shadow-lg p-4">
+                <Card.Title className="text-center text-primary fs-3 fw-bold">
+                    📜 Danh sách bài viết
+                </Card.Title>
+                <ListGroup className="mt-3">
+                    {posts.map(post => (
+                        <ListGroup.Item key={post.id} className="d-flex justify-content-between align-items-center">
+                            <Link to={`/posts/${post.id}`} className="text-decoration-none text-dark fw-semibold">
+                                {post.title}
+                            </Link>
+                            <Button variant="danger" size="sm" onClick={() => handleDeletePost(post.id)}>
+                                ❌ Xóa
+                            </Button>
+                        </ListGroup.Item>
+                    ))}
+                </ListGroup>
+                <div className="text-center mt-4">
+                    <Link to="/create">
+                        <Button variant="success" size="lg">✍️ Tạo bài viết mới</Button>
+                    </Link>
+                </div>
+            </Card>
+        </Container>
     );
 };
 

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Form, Button, Card, Container } from "react-bootstrap";
 
 const CreatePost = () => {
     const [title, setTitle] = useState("");
@@ -45,24 +46,48 @@ const CreatePost = () => {
     };
 
     return (
-        <div>
-            <h2>Tạo bài viết mới</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Tiêu đề:</label>
-                    <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
-                </div>
-                <div>
-                    <label>Nội dung:</label>
-                    <textarea value={content} onChange={(e) => setContent(e.target.value)} required />
-                </div>
-                <div>
-                    <label>Ảnh:</label>
-                    <input type="file" accept="image/*" onChange={handleImageChange} />
-                </div>
-                <button type="submit">Đăng bài</button>
-            </form>
-        </div>
+        <Container className="mt-4">
+            <Card className="p-4">
+                <h2 className="text-center mb-4">Tạo bài viết mới</h2>
+                <Form onSubmit={handleSubmit}>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Tiêu đề</Form.Label>
+                        <Form.Control 
+                            type="text" 
+                            value={title} 
+                            onChange={(e) => setTitle(e.target.value)} 
+                            required 
+                            placeholder="Nhập tiêu đề bài viết"
+                        />
+                    </Form.Group>
+
+                    <Form.Group className="mb-3">
+                        <Form.Label>Nội dung</Form.Label>
+                        <Form.Control 
+                            as="textarea" 
+                            rows={5} 
+                            value={content} 
+                            onChange={(e) => setContent(e.target.value)} 
+                            required 
+                            placeholder="Nhập nội dung bài viết"
+                        />
+                    </Form.Group>
+
+                    <Form.Group className="mb-3">
+                        <Form.Label>Ảnh bài viết</Form.Label>
+                        <Form.Control 
+                            type="file" 
+                            accept="image/*" 
+                            onChange={handleImageChange}
+                        />
+                    </Form.Group>
+
+                    <Button variant="primary" type="submit" className="w-100">
+                        Đăng bài
+                    </Button>
+                </Form>
+            </Card>
+        </Container>
     );
 };
 

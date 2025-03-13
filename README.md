@@ -7,7 +7,7 @@ A full-featured blog website application built with **Java Spring Boot** (backen
 - 📝 **Post Management** – Create and delete blog posts. *(Implemented, editing not available yet)*  
 - 💬 **Comment System** – Engage with posts through comments. *(Implemented)*  
 - 📂 **Image Uploads** – Upload and attach images to posts. *(Implemented, file uploads not available yet)*  
-- 🎨 **Modern UI** – Built with React & TailwindCSS. *(Work in Progress)*  
+- 🎨 **Modern UI** – Built with React & Bootstrap for a cleaner, responsive design. *(Implemented, further improvements ongoing)*  
 - 🔜 **Planned Features**:  
   - ✅ **User Authentication** – Register & login securely with JWT authentication.  
   - 📡 **Real-time Chat** – WebSocket-based chat functionality.  
@@ -15,6 +15,7 @@ A full-featured blog website application built with **Java Spring Boot** (backen
   - 📂 **File Uploads** – Support for additional file formats beyond images.  
   - 👍 **Like System** – Allow users to like posts.  
   - 🔍 **Post Filtering** – Filter posts by date and tags.  
+  - 🎨 **TailwindCSS UI** – Transition to TailwindCSS for a more customizable design.  
 
 ## 🛠 Tech Stack
 
@@ -55,7 +56,7 @@ cd blog-website
 
 3. **Nếu chưa có database `blog_db`, tạo nó:**
    ```sql
-   CREATE DATABASE blog_db;
+   CREATE DATABASE blogdb;
    ```
 
 4. **Thoát PostgreSQL:**
@@ -67,13 +68,16 @@ cd blog-website
 Cập nhật file `application.properties` trong thư mục `backend/blog/src/main/resources` với các thông tin sau:
 
 ```properties
-spring.application.name=blog_db
-spring.datasource.url=jdbc:postgresql://localhost:5432/blog_db
-spring.datasource.username=postgres  # Thay bằng username của bạn
-spring.datasource.password=phuc2006  # Thay bằng password của bạn
+spring.application.name=blog
+spring.datasource.url=jdbc:postgresql://localhost:5432/blogdb
+spring.datasource.username=postgres   # Thay bằng username của bạn
+spring.datasource.password=phuc2006   # Thay bằng password của bạn
 spring.jpa.hibernate.ddl-auto=update
-spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.properties.hibernate.format_sql=update
 spring.web.resources.static-locations=file:uploads/
+server.address=0.0.0.0
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
 ```
 
 ### **4. Setup Backend**

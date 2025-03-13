@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { Container, Card, ListGroup, Button, Form } from "react-bootstrap";
+import Modal from "react-bootstrap/Modal";
+import "react-medium-image-zoom/dist/styles.css";
+import Zoom from "react-medium-image-zoom";
 
 const PostDetail = () => {
     const { id } = useParams();
     const [post, setPost] = useState(null);
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
+    const [showImageModal, setShowImageModal] = useState(false);
 
     useEffect(() => {
         axios.get(`http://localhost:8080/api/posts/${id}`)
@@ -48,48 +51,63 @@ const PostDetail = () => {
     if (!post) return <p>Loading...</p>;
 
     return (
-        <Container className="mt-4">
-            <Card className="mb-4">
-                <Card.Body>
-                    <Card.Title>{post.title}</Card.Title>
-                    {post.imageUrl && (
-                        <Card.Img variant="top" src={post.imageUrl} alt="Post" className="mb-3" />
-                    )}
-                    <Card.Text>{post.postContent}</Card.Text>
-                </Card.Body>
-            </Card>
+        <div className="container mt-4">
+            <h2>{post.title}</h2>
 
+            {/* Hiển thị ảnh thu nhỏ */}
+            {post.imageUrl && (
+                <div className="image-container text-center">
+                    <Zoom>
+                        <img
+                            src={post.imageUrl}
+                            alt="Post"
+                            className="img-thumbnail"
+                            style={{ maxWidth: "300px", cursor: "pointer" }}
+                            onClick={() => setShowImageModal(true)}
+                        />
+                    </Zoom>
+                </div>
+            )}
+
+            <p>{post.postContent}</p>
+
+            {/* Danh sách bình luận */}
             <h3>Bình luận</h3>
-            <ListGroup className="mb-4">
+            <ul className="list-group">
                 {comments.length > 0 ? (
                     comments.map(comment => (
-                        <ListGroup.Item key={comment.id} className="d-flex justify-content-between align-items-center">
-                            <span>{comment.commentContent}</span>
-                            <Button variant="danger" size="sm" onClick={() => handleDeleteComment(comment.id)}>
-                                Xóa
-                            </Button>
-                        </ListGroup.Item>
+                        <li key={comment.id} className="list-group-item d-flex justify-content-between align-items-center">
+                            {comment.commentContent}
+                            <button className="btn btn-danger btn-sm" onClick={() => handleDeleteComment(comment.id)}>Xóa</button>
+                        </li>
                     ))
                 ) : (
-                    <ListGroup.Item>Không có bình luận nào.</ListGroup.Item>
+                    <p>Không có bình luận nào.</p>
                 )}
-            </ListGroup>
+            </ul>
 
-            <Form className="mb-4">
-                <Form.Group>
-                    <Form.Control 
-                        as="textarea" 
-                        rows={3} 
-                        value={newComment} 
-                        onChange={(e) => setNewComment(e.target.value)} 
-                        placeholder="Nhập bình luận của bạn..." 
-                    />
-                </Form.Group>
-                <Button variant="primary" className="mt-2" onClick={handleCommentSubmit}>
-                    Gửi bình luận
-                </Button>
-            </Form>
-        </Container>
+            {/* Ô nhập bình luận mới */}
+            <div className="mt-3">
+                <textarea
+                    className="form-control"
+                    value={newComment}
+                    onChange={(e) => setNewComment(e.target.value)}
+                    placeholder="Nhập bình luận của bạn..."
+                />
+                <button className="btn btn-primary mt-2" onClick={handleCommentSubmit}>Gửi</button>
+            </div>
+
+            {/* Modal hiển thị ảnh lớn hơn */}
+            <Modal show={showImageModal} onHide={() => setShowImageModal(false)} centered>
+                <Modal.Body className="text-center">
+                    {post.imageUrl && (
+                        <Zoom>
+                            <img src={post.imageUrl} alt="Expanded" className="img-fluid" />
+                        </Zoom>
+                    )}
+                </Modal.Body>
+            </Modal>
+        </div>
     );
 };
 

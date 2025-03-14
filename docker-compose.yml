@@ -1,13 +1,41 @@
-version: '3'
+version: '3.8'
 services:
   backend:
     build: ./backend/blog
     ports:
       - "8080:8080"
-  
+    depends_on:
+      - db
+    environment:
+      SPRING_APPLICATION_NAME: blog
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/blogdb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: phuc2006
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL: update
+      SPRING_WEB_RESOURCES_STATIC_LOCATIONS: file:uploads/
+      SERVER_ADDRESS: 0.0.0.0
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.PostgreSQLDialect
+
   frontend:
     build: ./frontend/blog-frontend
     ports:
       - "3000:80"
     depends_on:
       - backend
+
+  db:
+    image: postgres:15
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: blogdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: phuc2006
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

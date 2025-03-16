@@ -1,6 +1,7 @@
 package com.example.blog.controller;
 
 import com.example.blog.model.Post;
+import com.example.blog.service.CloudinaryService;
 import com.example.blog.service.PostService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,9 +28,11 @@ import java.util.UUID;
 public class PostController {
 
     private final PostService postService;
+    private final CloudinaryService cloudinaryService;
 
-    public PostController(PostService postService) {
+    public PostController(PostService postService, CloudinaryService cloudinaryService) {
         this.postService = postService;
+        this.cloudinaryService = cloudinaryService;
     }
 
     // 1️⃣ API tạo bài viết (Create)
@@ -56,103 +59,48 @@ public class PostController {
         return postService.updatePost(id, post);
     }
 
-    // 5️⃣ API xóa bài viết (Delete)
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deletePost(@PathVariable Long id) {
-        try {
-            // Lấy thông tin bài viết trước khi xóa
-            Post post = postService.getPostById(id);
-            if (post == null) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Post not found");
-            }
-
-            // Kiểm tra và xóa file ảnh nếu có
-            if (post.getImageUrl() != null && !post.getImageUrl().isEmpty()) {
-                String imageUrl = post.getImageUrl();
-                String fileName = imageUrl.substring(imageUrl.lastIndexOf("/") + 1);
-                String uploadDir = System.getProperty("user.dir") + "/uploads/";
-                Path filePath = Paths.get(uploadDir + fileName);
-
-                // Xóa file ảnh
-                if (Files.exists(filePath)) {
-                    Files.delete(filePath);
-                    System.out.println("Deleted image file: " + filePath);
-                }
-            }
-
-            // Xóa bài viết từ database
-            postService.deletePost(id);
-            return ResponseEntity.ok("Post and associated image (if any) deleted successfully");
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error deleting post or image file: " + e.getMessage());
+        Post post = postService.getPostById(id);
+        if (post == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Post not found");
         }
+
+        // Xóa ảnh trên Cloudinary nếu có
+        if (post.getImageUrl() != null && !post.getImageUrl().isEmpty()) {
+            cloudinaryService.deleteImage(post.getImageUrl());
+        }
+
+        // Xóa bài viết từ database
+        postService.deletePost(id);
+
+        return ResponseEntity.ok("Post deleted successfully");
     }
 
-    // API nhận ảnh bỏ vô file và trả về url
-    private static final String UPLOAD_DIR = "uploads/";
 
+    // API nhận ảnh up lên cloud và trả về url
     @PostMapping("/upload")
     public ResponseEntity<Map<String, String>> uploadImage(
             @RequestParam("file") MultipartFile file,
             @RequestParam("postId") Long postId) {
 
-        System.out.println("Received postId: " + postId); // Debug
-
         if (file.isEmpty()) {
             return ResponseEntity.badRequest().body(Map.of("error", "File is empty"));
         }
 
-        if (postId == null) {
-            return ResponseEntity.badRequest().body(Map.of("error", "postId is required"));
+        Post post = postService.getPostById(postId);
+        if (post == null) {
+            return ResponseEntity.badRequest().body(Map.of("error", "Post not found"));
         }
 
         try {
-            // Kiểm tra xem bài viết có tồn tại không
-            Post post = postService.getPostById(postId);
-            if (post == null) {
-                return ResponseEntity.badRequest().body(Map.of("error", "Post not found"));
-            }
-
-            // Lưu file
-            String uploadDir = System.getProperty("user.dir") + "/uploads/";
-            File uploadDirFile = new File(uploadDir);
-            if (!uploadDirFile.exists()) uploadDirFile.mkdirs();
-
-            String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
-            File dest = new File(uploadDir + fileName);
-            file.transferTo(dest);
-
-            // Cập nhật imageUrl vào Post
-            String imageUrl = "http://localhost:8080/uploads/" + fileName;
+            String imageUrl = cloudinaryService.uploadImage(file);
             post.setImageUrl(imageUrl);
             postService.updatePost(postId, post);
-
             return ResponseEntity.ok(Map.of("imageUrl", imageUrl));
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(Map.of("error", "Could not upload file"));
-        }
-    }
-
-
-
-    //load ảnh từ thư mục bất kỳ
-    @RestController
-    @RequestMapping("/uploads")
-    public class FileController {
-        @GetMapping("/{filename}")
-        public ResponseEntity<Resource> getFile(@PathVariable String filename) throws MalformedURLException {
-            Path file = Paths.get("uploads").resolve(filename);
-            Resource resource = new UrlResource(file.toUri());
-
-            if (resource.exists() || resource.isReadable()) {
-                return ResponseEntity.ok()
-                        .contentType(MediaType.IMAGE_PNG) // Hoặc MediaType.IMAGE_JPEG
-                        .body(resource);
-            } else {
-                return ResponseEntity.notFound().build();
-            }
         }
     }
 

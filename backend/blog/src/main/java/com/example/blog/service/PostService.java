@@ -35,7 +35,7 @@ public class PostService {
     }
 
 
-    // 1Tạo bài viết (Create) - Không dùng Optional
+    // Tạo bài viết (Create) - Không dùng Optional
     public Post creatPost(Post post) {
         if (post.getAuthor() == null || post.getAuthor().getId() == null) {
             throw new RuntimeException("Author ID is required");

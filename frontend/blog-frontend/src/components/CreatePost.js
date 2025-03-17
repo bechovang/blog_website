@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Form, Button, Card, Container } from "react-bootstrap";
+import BASE_URL from "../../config"; // Import BASE_URL
 
 const CreatePost = () => {
     const [title, setTitle] = useState("");
@@ -18,7 +19,7 @@ const CreatePost = () => {
 
         try {
             // 1️⃣ Tạo bài viết trước
-            const postRes = await axios.post("http://localhost:8080/api/posts", {
+            const postRes = await axios.post(`${BASE_URL}/api/posts`, {
                 title,
                 postContent: content,
                 author: { id: 1 },
@@ -33,7 +34,7 @@ const CreatePost = () => {
                 formData.append("file", image);
                 formData.append("postId", postId); // Gửi postId lên server
 
-                await axios.post("http://localhost:8080/api/posts/upload", formData, {
+                await axios.post(`${BASE_URL}/api/posts/upload`, formData, {
                     headers: { "Content-Type": "multipart/form-data" }
                 });
             }

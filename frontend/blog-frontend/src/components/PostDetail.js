@@ -4,6 +4,7 @@ import axios from "axios";
 import Modal from "react-bootstrap/Modal";
 import "react-medium-image-zoom/dist/styles.css";
 import Zoom from "react-medium-image-zoom";
+import BASE_URL from "../../config";
 
 const PostDetail = () => {
     const { id } = useParams();
@@ -13,11 +14,11 @@ const PostDetail = () => {
     const [showImageModal, setShowImageModal] = useState(false);
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/posts/${id}`)
+        axios.get(`${BASE_URL}/api/posts/${id}`)
             .then(response => setPost(response.data))
             .catch(error => console.error("Error fetching post:", error));
 
-        axios.get(`http://localhost:8080/api/comments/post/${id}`)
+        axios.get(`${BASE_URL}/api/comments/post/${id}`)
             .then(response => setComments(response.data))
             .catch(error => console.error("Error fetching comments:", error));
     }, [id]);
@@ -26,7 +27,7 @@ const PostDetail = () => {
         if (!newComment.trim()) return;
 
         try {
-            const response = await axios.post("http://localhost:8080/api/comments", {
+            const response = await axios.post(`${BASE_URL}/api/comments`, {
                 post: { id: id },
                 user: { id: 1 },
                 commentContent: newComment,
@@ -41,7 +42,7 @@ const PostDetail = () => {
 
     const handleDeleteComment = async (commentId) => {
         try {
-            await axios.delete(`http://localhost:8080/api/comments/${commentId}`);
+            await axios.delete(`${BASE_URL}/api/comments/${commentId}`);
             setComments(comments.filter(comment => comment.id !== commentId));
         } catch (error) {
             console.error("Error deleting comment:", error);

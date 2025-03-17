@@ -2,18 +2,19 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { Button, Card, Container, ListGroup } from "react-bootstrap";
+import BASE_URL from "../../config"; // Import BASE_URL
 
 const PostList = () => {
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:8080/api/posts")
+        axios.get(`${BASE_URL}/api/posts`)
             .then(response => setPosts(response.data))
             .catch(error => console.error("Error fetching posts:", error));
     }, []);
 
     const handleDeletePost = (id) => {
-        axios.delete(`http://localhost:8080/api/posts/${id}`)
+        axios.delete(`${BASE_URL}/api/posts/${id}`)
             .then(() => {
                 setPosts(posts.filter(post => post.id !== id));
             })

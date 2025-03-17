@@ -6,12 +6,13 @@ import axios from "axios";
 import PostList from "./components/PostList";
 import PostDetail from "./components/PostDetail";
 import CreatePost from "./components/CreatePost";
+import BASE_URL from "./config"; // Import BASE_URL
 
 function App() {
   useEffect(() => {
     const checkAndCreateUsers = async () => {
       try {
-        await axios.post("http://localhost:8080/api/users/check-and-create");
+        await axios.post(`${BASE_URL}/api/users/check-and-create`);
         console.log("Đã kiểm tra và tạo user nếu cần.");
       } catch (error) {
         console.error("Lỗi khi kiểm tra/tạo user:", error);

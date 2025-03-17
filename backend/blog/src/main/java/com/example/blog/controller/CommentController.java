@@ -5,7 +5,8 @@ import com.example.blog.service.CommentService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@CrossOrigin(origins = "https://blog-website-frontend-shku.onrender.com") // Cho phép CORS cho riêng API này
+
+
 @RestController
 @RequestMapping("/api/comments") // Định nghĩa URL gốc cho API này
 public class CommentController {

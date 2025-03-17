@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
-@CrossOrigin(origins = "https://blog-website-frontend-shku.onrender.com") // Cho phép CORS cho riêng API này
+
 
 @RestController
 @RequestMapping("/api/users") // Định nghĩa URL gốc cho API user

@@ -15,7 +15,8 @@ public class CorsConfig {
                             "https://blog-website-frontend-shku.onrender.com", 
                             "http://localhost:3000"
                         )
-                        .allowedMethods("GET", "POST", "PUT", "DELETE")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                        .allowedHeaders("*") // Chấp nhận tất cả headers
                         .allowCredentials(true);
             }
         };

@@ -10,13 +10,11 @@ public class CorsConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/api/**")
-                        .allowedOrigins(
-                            "https://blog-website-frontend-shku.onrender.com", 
-                            "http://localhost:3000"
-                        )
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                        .allowedHeaders("*") // Chấp nhận tất cả headers
+                registry.addMapping("/**")
+                        //.allowedOrigins("http://localhost:3000") // Hoặc "*" nếu không cần bảo mật
+                        .allowedOrigins("*") // Hoặc "*" nếu không cần bảo mật
+                        .allowedMethods("GET", "POST", "PUT", "DELETE")
+                        .allowedHeaders("*")
                         .allowCredentials(true);
             }
         };

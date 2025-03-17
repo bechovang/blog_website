@@ -4,7 +4,7 @@ import axios from "axios";
 import Modal from "react-bootstrap/Modal";
 import "react-medium-image-zoom/dist/styles.css";
 import Zoom from "react-medium-image-zoom";
-import BASE_URL from "../../config";
+import BASE_URL from "../config";
 
 const PostDetail = () => {
     const { id } = useParams();

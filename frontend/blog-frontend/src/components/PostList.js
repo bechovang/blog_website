@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { Button, Card, Container, ListGroup } from "react-bootstrap";
-import BASE_URL from "../../config"; // Import BASE_URL
+import BASE_URL from "../config"; // Import BASE_URL
 
 const PostList = () => {
     const [posts, setPosts] = useState([]);

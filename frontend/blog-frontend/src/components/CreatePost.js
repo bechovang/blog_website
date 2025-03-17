@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Form, Button, Card, Container } from "react-bootstrap";
-import BASE_URL from "../../config"; // Import BASE_URL
+import BASE_URL from "../config"; // Import BASE_URL
 
 const CreatePost = () => {
     const [title, setTitle] = useState("");

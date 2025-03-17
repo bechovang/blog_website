@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+@CrossOrigin(origins = "https://blog-website-frontend-shku.onrender.com") // Cho phép CORS cho riêng API này
 
 @RestController
 @RequestMapping("/api/posts") // Định nghĩa URL gốc cho API này

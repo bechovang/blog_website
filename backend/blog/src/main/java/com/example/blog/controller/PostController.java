@@ -23,6 +23,8 @@ import java.util.Map;
 import java.util.UUID;
 
 @CrossOrigin(origins = "http://localhost:3000") // Cho phép CORS cho riêng API này
+@CrossOrigin(origins = "https://blog-website-frontend-shku.onrender.com")
+
 @RestController
 @RequestMapping("/api/posts") // Định nghĩa URL gốc cho API này
 public class PostController {

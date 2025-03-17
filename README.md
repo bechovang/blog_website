@@ -100,8 +100,8 @@ _Frontend sẽ chạy tại: `http://localhost:3000`_
 
 ## 🌍 Deployment on Render
 
-- **Backend**: `https://your-backend.onrender.com`
-- **Frontend**: `https://your-frontend.onrender.com`
+- **Backend**: `https://blog-website-oanh.onrender.com`
+- **Frontend**: `https://blog-website-frontend-shku.onrender.com`
 
 ## 📡 API Endpoints
 

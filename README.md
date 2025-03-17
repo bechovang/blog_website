@@ -125,4 +125,4 @@ This project is licensed under the **MIT License**.
 ---
 
 **Made with ❤️ by Ngọc Phúc**
-[DOCS]([url](https://docs.google.com/document/d/1Ay7-5QRVyjRHuKJzAoeOU7zLcS4x_ZDMWRewdg0gcm4/edit?tab=t.0))
+[DOCS](https://docs.google.com/document/d/1Ay7-5QRVyjRHuKJzAoeOU7zLcS4x_ZDMWRewdg0gcm4/edit?tab=t.0)

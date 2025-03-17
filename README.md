@@ -1,4 +1,3 @@
-
 # Blog Website Application
 
 A full-featured blog website application built with **Java Spring Boot** (backend) and **React** (frontend), supporting user authentication, post creation, commenting, and real-time chat.
@@ -32,7 +31,7 @@ A full-featured blog website application built with **Java Spring Boot** (backen
 
 ### **Deployment:**
 - Docker (Containerization) *(Planned)*
-- Heroku / Vercel (Hosting) *(Planned)*  
+- Heroku / Vercel / Render (Hosting) *(Implemented)*  
 
 ## 📦 Installation & Setup
 
@@ -99,6 +98,11 @@ _Frontend sẽ chạy tại: `http://localhost:3000`_
 
 **📌 Lưu ý:** Chạy lệnh này trong thư mục `blog-website/frontend/blog-frontend`.
 
+## 🌍 Deployment on Render
+
+- **Backend**: `https://your-backend.onrender.com`
+- **Frontend**: `https://your-frontend.onrender.com`
+
 ## 📡 API Endpoints
 
 | Method | Endpoint           | Description         |
@@ -120,4 +124,5 @@ This project is licensed under the **MIT License**.
 
 ---
 
-**Made with ❤️ by Ngọc Phúc**  
+**Made with ❤️ by Ngọc Phúc**
+

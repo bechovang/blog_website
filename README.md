@@ -69,8 +69,8 @@ Cập nhật file `application.properties` trong thư mục `backend/blog/src/ma
 ```properties
 spring.application.name=blog
 spring.datasource.url=jdbc:postgresql://localhost:5432/blogdb
-spring.datasource.username=postgres   # Thay bằng username của bạn
-spring.datasource.password=phuc2006   # Thay bằng password của bạn
+spring.datasource.username=...   # Thay bằng username của bạn
+spring.datasource.password=... # Thay bằng password của bạn
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.properties.hibernate.format_sql=update
 spring.web.resources.static-locations=file:uploads/

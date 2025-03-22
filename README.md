@@ -35,6 +35,23 @@ A full-featured blog website application built with **Java Spring Boot** (backen
 - Docker (Containerization)
 - Render (Hosting)  
 
+## 📸 Screenshots
+
+### **Homepage**
+![Homepage](screenshots/homepage.png)
+
+### **Post Creation**
+![Create Post](screenshots/create_post.png)
+
+### **Comment System**
+![Comments](screenshots/comments.png)
+
+### **User Authentication** *(Planned)*
+![Login](screenshots/login.png)
+
+### **Real-time Chat** *(Planned)*
+![Chat](screenshots/chat.png)
+
 ## 📦 Installation & Setup
 
 ### **1. Clone the Repository**

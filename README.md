@@ -70,7 +70,7 @@ When deleting a post:
 ## 🌍 Deployment on Render
 
 - **Backend**: `https://blog-website-oanh.onrender.com`
-- **Frontend**: [`Click here to test`](https://blog-website-frontend-shku.onrender.com) – `https://blog-website-frontend-shku.onrender.com`
+- **Frontend**:  `https://blog-website-frontend-shku.onrender.com` [`Click here to test`](https://blog-website-frontend-shku.onrender.com)
 
 ## 💼 API Endpoints
 

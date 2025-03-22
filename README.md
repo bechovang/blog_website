@@ -70,11 +70,27 @@ When deleting a post:
 ## 🌍 Deployment on Render
 
 - **Backend**: `https://blog-website-oanh.onrender.com`
-- **Frontend**: `https://blog-website-frontend-shku.onrender.com`
+- **Frontend**: [`Click here to test`](https://blog-website-frontend-shku.onrender.com) – `https://blog-website-frontend-shku.onrender.com`
 
 ## 💼 API Endpoints
 
 | Method | Endpoint           | Description         |
 |--------|-------------------|---------------------|
 | GET    | `/api/posts`      | Get all posts      |
-| GET    | `/api/post
+| GET    | `/api/posts/{id}` | Get a single post  |
+| POST   | `/api/comments`   | Create a comment   |
+
+## 🤝 Contributing  
+Pull requests are welcome! Follow these steps:  
+1. Fork the repository  
+2. Create a new branch (`git checkout -b feature-branch`)  
+3. Commit your changes (`git commit -m "Added new feature"`)  
+4. Push the branch (`git push origin feature-branch`)  
+5. Submit a Pull Request  
+
+## 📜 License  
+This project is licensed under the **MIT License**.
+
+---
+
+**Made with ❤️ by Ngọc Phúc**

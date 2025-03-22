@@ -20,7 +20,7 @@ A full-featured blog website application built with **Java Spring Boot** (backen
 
 ### **Backend:**
 - Java + Spring Boot
-- PostgreSQL
+- PostgreSQL (Hosted on **Render**)
 - WebSockets for real-time chat *(Planned)*
 - JWT for authentication *(Planned)*
 - Cloudinary for image storage
@@ -33,7 +33,10 @@ A full-featured blog website application built with **Java Spring Boot** (backen
 
 ### **Deployment:**
 - Docker (Containerization)
-- Render (Hosting)  
+- Render (Hosting)
+
+### **Cloud Services:**
+- **Cloudinary** – Used for storing and managing images efficiently.
 
 ## 📸 Screenshots
 

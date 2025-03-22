@@ -5,7 +5,7 @@ A full-featured blog website application built with **Java Spring Boot** (backen
 ## 🚀 Features  
 - 📝 **Post Management** – Create and delete blog posts. *(Implemented, editing not available yet)*  
 - 💬 **Comment System** – Engage with posts through comments. *(Implemented)*  
-- 📂 **Image Uploads** – Upload and attach images to posts. *(Implemented, file uploads not available yet)*  
+- 📂 **Image Uploads** – Upload and attach images to posts via Cloudinary. *(Implemented, file uploads not available yet)*  
 - 🎨 **Modern UI** – Built with React & Bootstrap for a cleaner, responsive design. *(Implemented, further improvements ongoing)*  
 - 🔜 **Planned Features**:  
   - ✅ **User Authentication** – Register & login securely with JWT authentication.  
@@ -23,15 +23,17 @@ A full-featured blog website application built with **Java Spring Boot** (backen
 - PostgreSQL
 - WebSockets for real-time chat *(Planned)*
 - JWT for authentication *(Planned)*
+- Cloudinary for image storage
 
 ### **Frontend:**
 - React
 - Axios (API calls)
-- TailwindCSS (Styling) *(Work in Progress)*
+- Bootstrap (Styling)
+- TailwindCSS (Work in Progress)
 
 ### **Deployment:**
-- Docker (Containerization) *(Planned)*
-- Heroku / Vercel / Render (Hosting) *(Implemented)*  
+- Docker (Containerization)
+- Render (Hosting)  
 
 ## 📦 Installation & Setup
 
@@ -41,62 +43,59 @@ git clone https://github.com/your-username/blog-website.git
 cd blog-website
 ```
 
-### **2. Tạo và Cấu hình Database**
-1. **Mở PostgreSQL bằng terminal/cmd:**
+### **2. Set Up the Database**
+1. **Open PostgreSQL via terminal/cmd:**
    ```bash
    psql -U postgres
    ```
-   (Nhập mật khẩu nếu có)
+   (Enter password if prompted)
 
-2. **Kiểm tra database có tồn tại không:**
+2. **Check if database exists:**
    ```sql
    \l
    ```
 
-3. **Nếu chưa có database `blog_db`, tạo nó:**
+3. **Create the database `blogdb` if it doesn't exist:**
    ```sql
    CREATE DATABASE blogdb;
    ```
 
-4. **Thoát PostgreSQL:**
+4. **Exit PostgreSQL:**
    ```sql
    \q
    ```
 
-### **3. Cấu hình `application.properties`**
-Cập nhật file `application.properties` trong thư mục `backend/blog/src/main/resources` với các thông tin sau:
+### **3. Configure `application.properties`**
+Update `application.properties` in `backend/src/main/resources`:
 
 ```properties
 spring.application.name=blog
 spring.datasource.url=jdbc:postgresql://localhost:5432/blogdb
-spring.datasource.username=...   # Thay bằng username của bạn
-spring.datasource.password=... # Thay bằng password của bạn
+spring.datasource.username=...   # Replace with your username
+spring.datasource.password=... # Replace with your password
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.properties.hibernate.format_sql=update
 spring.web.resources.static-locations=file:uploads/
 server.address=0.0.0.0
 spring.datasource.driver-class-name=org.postgresql.Driver
 spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
+cloudinary.cloud-name=...  # Replace with your Cloudinary details
+cloudinary.api-key=...
+cloudinary.api-secret=...
 ```
 
 ### **4. Setup Backend**
 ```bash
 mvn spring-boot:run
 ```
-_Backend sẽ chạy tại: `http://localhost:8080`_
-
-**📌 Lưu ý:** Chạy lệnh này trong thư mục `blog-website/backend/blog`.
-
-**📌 Lưu ý:** Nếu sử dụng IntelliJ IDEA, mở project từ **`blog-website/backend`** trước khi chạy lệnh.
+_Backend runs at: `http://localhost:8080`_
 
 ### **5. Setup Frontend**
 ```bash
 npm install
 npm start
 ```
-_Frontend sẽ chạy tại: `http://localhost:3000`_
-
-**📌 Lưu ý:** Chạy lệnh này trong thư mục `blog-website/frontend/blog-frontend`.
+_Frontend runs at: `http://localhost:3000`_
 
 ## 🌍 Deployment on Render
 
@@ -125,4 +124,4 @@ This project is licensed under the **MIT License**.
 ---
 
 **Made with ❤️ by Ngọc Phúc**
-[DOCS](https://docs.google.com/document/d/1Ay7-5QRVyjRHuKJzAoeOU7zLcS4x_ZDMWRewdg0gcm4/edit?tab=t.0)
+
